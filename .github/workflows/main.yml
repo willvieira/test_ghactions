@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest]
         node-version: [12.x]
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +38,7 @@ jobs:
         run: julia --version
 
       - name: Get julia path
-        run: get-command julia
+        run: which julia
 
       - name: Get Sys path
-        run: Rscript -e "Sys.getenv('LOCALAPPDATA'); Sys.getenv('USERPROFILE')"
+        run: Rscript -e "Sys.getenv('LOCALAPPDATA'); Sys.getenv('HOME')"
