@@ -38,4 +38,4 @@ jobs:
         run: julia --version
 
       - name: Get julia path
-        run: where julia
+        run: get-command julia
