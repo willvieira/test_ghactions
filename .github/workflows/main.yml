@@ -41,4 +41,4 @@ jobs:
         run: get-command julia
 
       - name: Get Sys path
-        run: Rscript -e "Sys.getenv("LOCALAPPDATA"); Sys.getenv("USERPROFILE")"
+        run: Rscript -e "Sys.getenv('LOCALAPPDATA'); Sys.getenv('USERPROFILE')"
