@@ -11,16 +11,26 @@ permissions: read-all
 
 jobs:
   R-CMD-check:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        node-version: [12.x]
+        config:
+          - {os: ubuntu-latest, r: 'release', run_windows: false}
+          - {os: windows-latest, r: 'release', run_windows: true}
+
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
+      - name: Check if Windows run should proceed
+        if: ${{ matrix.config.run_windows && !needs.ubuntu.outputs.approved }}
+        run: exit 0
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
